@@ -2,11 +2,6 @@ const fs = require('fs')
 const path = './task'
 const pm2 = require('pm2')
 
-// EXECUTION
-getNameTaskValue().then((res) => {
-  startProcess(res)
-})
-
 /*
 * Creation d'un tableau avec tout les noms de fichier crées
 * @return promese
@@ -25,7 +20,10 @@ const getNameTaskValue = () => {
   })
 }
 
-// Démarrer les process
+/*
+* Démarrer les process
+* @return
+*/
 const startProcess = (fileTab) => {
   pm2.connect(function(err) {
     if (err) {
@@ -35,26 +33,28 @@ const startProcess = (fileTab) => {
 
     pm2.start({
       script: 'index.js',
-      instances : 6,
+      instances : 4,
       instance_var: 'INSTANCE_ID',
       env: {
           "NODE_ENV": "development"
       }
     }, function(err, apps) {
       if (err) throw err
-
-      /*apps.map(app => {
-        console.log('here')
-        pm2.sendDataToProcessId({
-          type: 'process:msg',
-          data: `/Users/benede.a/Documents/mds.master.bigdata/task/output-${app.pm2_env.pm_id}.csv`,
-          topic: 'test',
-          id: app.pm2_env.pm_id
-        }, function(err, res) {
-            if (err)
-             throw err;
-        })
-      })*/
     })
   })
 }
+
+pm2.launchBus((err, bus) => {
+  bus.on('process:msg', (packet) => {
+    //console.log('process end =>', packet.data)
+    console.log('packet.process.pm_id =>', packet.process.pm_id)
+    /*packet.data.success.should.eql(true)
+    packet.process.pm_id.should.eql(proc1.pm2_env.pm_id)
+    done()*/
+  })
+})
+
+// EXECUTION
+getNameTaskValue().then((res) => {
+  startProcess(res)
+})

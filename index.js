@@ -25,7 +25,12 @@ mongoose.connection.on('open', (err, conn) => {
         console.log('failed to parse data from csv')
       } else {
         insertData(dataResponse, 0, maxElement, () => {
-          console.log('end bulk process =>', instanceId)
+          process.send({
+            type: 'process:msg',
+            data: {
+             success: true
+            }
+         })
         })
       }
     })
@@ -70,7 +75,8 @@ const insertData = (data, debut, fin, callback) => {
       }
     })))
     .then(() => {
-      return insertData(data, fin, (fin + maxElement), callback)
+      callback('plus aucune données à insérer')
+      //return insertData(data, fin, (fin + maxElement), callback)
     })
     .catch(e => console.error(e))
   }

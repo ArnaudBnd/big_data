@@ -11,12 +11,16 @@ L'objectif est de réaliser un indexeur mongodb à haute volumétrie pour le 
 * npm start
 ```
 
-## Etapes 1 - Split le csv en plusieurs dossiers:
+## Etape 1 - Récupération du csv:
+	- Aller sur le site: https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/
+	- Télécharger le csv intitulé: 'Sirene : Fichier StockEtablissement du 01 avril 2019'
+
+## Etapes 2 - Split le csv en plusieurs dossiers:
 ```console
 * node createTask.js
 ```
 
-## Etapes 2 - Lancement des processus:
+## Etapes 3 - Lancement des processus:
 ```console
 * pm2 start process.js
 ```
