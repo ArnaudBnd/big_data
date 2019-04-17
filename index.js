@@ -15,27 +15,39 @@ const datas = new mongoose.Schema({}, {
 // compile schema to model
 const MyModel = mongoose.model('bigdata', datas)
 
-// EXECUTION
-mongoose.connection.on('open', (err, conn) => {
-  if (err) {
-    process.exit(1)
-  } else {
-    parseData(`/Users/benede.a/Documents/mds.master.bigdata/task/output-${instanceId}.csv`).then((dataResponse) => {
-      if(dataResponse === 0) {
-        console.log('failed to parse data from csv')
-      } else {
-        insertData(dataResponse, 0, maxElement, () => {
-          process.send({
-            type: 'process:msg',
-            data: {
-             success: true
-            }
-         })
-        })
+/*
+ * Démarrage des process
+ */
+process.on('message', ({ data, type }) => {
+    switch (type) {
+      case 'startProcessInsert':
+        startAllForInsert(data.fileIndex)
+        break
+      default:
+        break
       }
-    })
-  }
 })
+
+/*
+* Start process
+* @params fileIndex
+*/
+const startAllForInsert = (fileIndex) => {
+  parseData(`/Users/benede.a/Documents/mds.master.bigdata/task/output-${fileIndex}.csv`).then((dataResponse) => {
+    if(dataResponse === 0) {
+      console.log('failed to parse data from csv')
+    } else {
+      insertData(dataResponse, 0, maxElement, () => {
+        process.send({
+          type: 'process:msg',
+          data: {
+           success: true
+          }
+       })
+      })
+    }
+  })
+}
 
 /*
 * Parse data to insert into base
@@ -76,7 +88,7 @@ const insertData = (data, debut, fin, callback) => {
     })))
     .then(() => {
       callback('plus aucune données à insérer')
-      //return insertData(data, fin, (fin + maxElement), callback)
+      // return insertData(data, fin, (fin + maxElement), callback)
     })
     .catch(e => console.error(e))
   }
