@@ -33,7 +33,7 @@ process.on('message', ({ data, type }) => {
  * @params fileIndex
  */
 const startAllForInsert = (fileIndex) => {
-  parseData(`/Users/benede.a/Documents/mds.master.bigdata/task/output-${fileIndex}.csv`).then((dataResponse) => {
+  parseData(`./task/file-${fileIndex}.csv`).then((dataResponse) => {
     if(dataResponse === 0) {
       console.log('failed to parse data from csv')
     } else {

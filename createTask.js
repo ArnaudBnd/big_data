@@ -24,9 +24,9 @@ const splitSVG = (csv) => {
       {
         lineLimit: 250000
       },
-      (index) => fs.createWriteStream(`./task/output-${index}.csv`)
+      (index) => fs.createWriteStream(`./task/file-${index}.csv`)
     ).then((response) => {
-      console.log(response)
+      console.log(response.totalChunks, ' fils => split done.')
     })
   })
 }
