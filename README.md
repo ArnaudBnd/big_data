@@ -4,23 +4,27 @@
 L'objectif est de réaliser un indexeur mongodb à haute volumétrie pour le compte du gouvernement pour transitionner des données au format csv vers une base de données NoSQL. Je serez en charge de la totalité du processus permettant le transfére des données csv.
 
 
-## Comment l'utiliser :
+## Etape 1 - Récupération du projet:
 ```console
-* git clone url
+* git clone https://github.com/ArnaudBnd/big_data.git
 * npm i
-* npm start
 ```
 
-## Etape 1 - Récupération du csv:
+## Etape 2 - Récupération du csv:
 	- Aller sur le site: https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/
 	- Télécharger le csv intitulé: 'Sirene : Fichier StockEtablissement du 01 avril 2019'
+	- Copier le CSV intitulé 'StockEtablissement_utf8.csv' dans le dossier csv du projet cloné.
 
-## Etapes 2 - Split le csv en plusieurs dossiers:
+## Etape 3 - Ajout du csv au dossier:
+	- Ajouter le csv a la racine du dossier
+
+## Etapes 4 - Split le csv en plusieurs sous dossiers:
 ```console
 * node createTask.js
 ```
+Un dossier 'task' va etre crée avec l'ensemble des données split.
 
-## Etapes 3 - Lancement des processus:
+## Etapes 5 - Lancement des process:
 ```console
 * pm2 start process.js
 ```

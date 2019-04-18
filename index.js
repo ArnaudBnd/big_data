@@ -29,9 +29,9 @@ process.on('message', ({ data, type }) => {
 })
 
 /*
-* Start process
-* @params fileIndex
-*/
+ * Start process
+ * @params fileIndex
+ */
 const startAllForInsert = (fileIndex) => {
   parseData(`/Users/benede.a/Documents/mds.master.bigdata/task/output-${fileIndex}.csv`).then((dataResponse) => {
     if(dataResponse === 0) {
@@ -50,10 +50,10 @@ const startAllForInsert = (fileIndex) => {
 }
 
 /*
-* Parse data to insert into base
-* @params url
-* @return promese
-*/
+ * Parse data to insert into base
+ * @params url
+ * @return promese
+ */
 const parseData = (url) => {
   return new Promise((resolve) => {
     const readStream = fs.createReadStream(url)
@@ -72,7 +72,6 @@ const parseData = (url) => {
  /*
   * Bulk data into bdd
   * @params data, debut, fin, callback
-  * @return function
   */
 const insertData = (data, debut, fin, callback) => {
   const currentData = data.slice(debut, fin)
@@ -87,8 +86,8 @@ const insertData = (data, debut, fin, callback) => {
       }
     })))
     .then(() => {
-      callback('plus aucune données à insérer')
-      // return insertData(data, fin, (fin + maxElement), callback)
+      // callback('plus aucune données à insérer')
+      return insertData(data, fin, (fin + maxElement), callback)
     })
     .catch(e => console.error(e))
   }

@@ -1,7 +1,7 @@
 const csvSplitStream = require('csv-split-stream')
 const fs = require('fs')
 const path = './task'
-const csv = '/Users/benede.a/Documents/mds.master.bigdata/StockEtablissement_utf8.csv'
+const csv = './csv/StockEtablissement_utf8.csv'
 var pm2 = require('pm2')
 
 // tcheck if task folder exist
@@ -33,8 +33,12 @@ const splitSVG = (csv) => {
 
 // EXECUTION
 createTask().then((response) => {
-  //SVG SPLIT
-  splitSVG(csv).then((resolve) => {
-    console.log(response)
-  })
+  if (response === 'NOT EXIST') {
+    //SVG SPLIT
+    splitSVG(csv).then((resolve) => {
+      console.log(response)
+    })
+  } else {
+    console.log('split already been')
+  }
 })

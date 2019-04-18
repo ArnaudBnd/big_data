@@ -5,9 +5,9 @@ let indexFil = 0
 let maxIndexFil = 99
 
 /*
-* Creation d'un tableau avec tout les noms de fichier crées
-* @return promese
-*/
+ * Creation d'un tableau avec tout les noms de fichier crées
+ * @return promese
+ */
 const getNameTaskValue = () => {
   return new Promise((resolve) => {
     // get name csv
@@ -23,9 +23,9 @@ const getNameTaskValue = () => {
 }
 
 /*
-* Démarrer les process
-* @return
-*/
+ * Démarrer les process
+ *
+ */
 const startProcess = (fileTab) => {
   pm2.connect(function(err) {
     if (err) {
@@ -35,7 +35,7 @@ const startProcess = (fileTab) => {
 
     pm2.start({
       script: 'index.js',
-      instances : 4,
+      instances : 2,
       instance_var: 'INSTANCE_ID',
       env: {
           "NODE_ENV": "development"
@@ -62,6 +62,10 @@ const startProcess = (fileTab) => {
   })
 }
 
+/*
+ * Opens a message bus enter process
+ *
+ */
 pm2.launchBus((err, bus) => {
   bus.on('process:msg', (packet) => {
     if (packet.data.success) {
