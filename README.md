@@ -13,18 +13,15 @@ L'objectif est de réaliser un indexeur mongodb à haute volumétrie pour le 
 ## Etape 2 - Récupération du csv:
 	- Aller sur le site: https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/
 	- Télécharger le csv intitulé: 'Sirene : Fichier StockEtablissement du 01 avril 2019'
-	- Copier le CSV intitulé 'StockEtablissement_utf8.csv' dans le dossier csv du projet cloné.
+	- Copier le CSV téléchargé intitulé 'StockEtablissement_utf8.csv' (ou le renommer ainsi) dans le dossier csv du projet cloné.
 
-## Etape 3 - Ajout du csv au dossier:
-	- Ajouter le csv a la racine du dossier
-
-## Etapes 4 - Split le csv en plusieurs sous dossiers:
+## Etapes 3 - Split le csv en plusieurs sous dossiers:
 ```console
 * node createTask.js
 ```
 Un dossier 'task' va etre crée avec l'ensemble des données split.
 
-## Etapes 5 - Lancement des process:
+## Etapes 4 - Lancement des process:
 ```console
 * pm2 start process.js
 ```
