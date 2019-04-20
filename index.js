@@ -61,7 +61,7 @@ const parseData = (url) => {
     readStream.on('data', (chunk) => {
       data += chunk
     }).on('end', async () => {
-      // on attends que toute les données soient parse avant de resolve
+      // we wait for all the data to be released before resolving
       const res = await data.toString().split("\n").map(el => el.split(","))
       resolve(res)
     })
@@ -85,7 +85,6 @@ const insertData = (data, debut, fin, callback) => {
       }
     })))
     .then(() => {
-      // callback('plus aucune données à insérer')
       return insertData(data, fin, (fin + maxElement), callback)
     })
     .catch(e => console.error(e))
