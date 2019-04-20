@@ -1,11 +1,9 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const fileUpload = require('express-fileupload');
+const express = require('express')
 // initialize our express app
-const app = express();
+const app = express()
 
-let port = 1234;
+let port = 1234
 
 app.listen(port, () => {
-    console.log('Server is up and running on port numner ' + port);
-});
+    console.log('Server is up and running on port numner ' + port)
+})

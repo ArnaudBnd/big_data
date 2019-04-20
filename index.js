@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const fs = require('fs')
 const modelMongo = require('./models/bigdata.model')
 const maxElement = 1000
-let instanceId = process.env.INSTANCE_ID
 
 // make a connection
 mongoose.connect('mongodb://localhost:27017/datas', { useNewUrlParser: true })

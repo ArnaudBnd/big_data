@@ -13,6 +13,7 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
+        "no-console": "off",
         "import/extensions": "off",
         "import/no-extraneous-dependencies": "off",
         "import/no-unresolved": "off",

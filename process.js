@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = './task'
 const pm2 = require('pm2')
 let indexFil = 0
-let maxIndexFil = 99
 
 /*
  * Creation d'un tableau avec tout les noms de fichier crées
@@ -23,10 +22,10 @@ const getNameTaskValue = () => {
 }
 
 /*
- * Démarrer les process
+ * Démarrage des process
  *
  */
-const startProcess = (fileTab) => {
+const startProcess = () => {
   pm2.connect(function(err) {
     if (err) {
       console.error(err)
@@ -35,7 +34,7 @@ const startProcess = (fileTab) => {
 
     pm2.start({
       script: 'index.js',
-      instances : 2,
+      instances : 4,
       instance_var: 'INSTANCE_ID',
       env: {
           "NODE_ENV": "development"
@@ -52,7 +51,7 @@ const startProcess = (fileTab) => {
               fileIndex: indexFil
             },
             topic: 'DEFAULT_TOPIC'
-          }, (err, res) => {
+          }, () => {
             console.log('instance', ' done')
           })
           indexFil++
@@ -78,7 +77,7 @@ pm2.launchBus((err, bus) => {
           fileIndex: indexFil
         },
         topic: 'DEFAULT_TOPIC'
-      }, (err, res) => {
+      }, () => {
         console.log('instance', ' done')
       })
     } else {

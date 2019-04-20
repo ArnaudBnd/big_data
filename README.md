@@ -3,10 +3,15 @@
 ## Contexte
 L'objectif est de réaliser un indexeur mongodb à haute volumétrie pour le compte du gouvernement pour transitionner des données au format csv vers une base de données NoSQL. Je serez en charge de la totalité du processus permettant le transfére des données csv.
 
+Important = L'utilisation de pm2 "^3.2.5" est obligatoire pour le bon fonctionnement.
 
 ## Etape 1 - Récupération du projet:
 ```console
 * git clone https://github.com/ArnaudBnd/big_data.git
+```
+
+Placez vous dans le dossier crée
+```console
 * npm i
 ```
 
@@ -20,6 +25,7 @@ L'objectif est de réaliser un indexeur mongodb à haute volumétrie pour le 
 * node createTask.js
 ```
 Un dossier 'task' va etre crée avec l'ensemble des données split.
+Ainsi qu'un message de fin sera indiqué dans la console.
 
 ## Etapes 4 - Lancement des process:
 ```console
