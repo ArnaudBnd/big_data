@@ -15,7 +15,7 @@ const createTask = () => {
   })
 }
 
-// séparation du CSV en 112 csv
+// split CSV in 112 subfolder
 const splitCSV = (csv) => {
   csvSplitStream.split(
     fs.createReadStream(csv),

@@ -15,7 +15,7 @@ const datas = new mongoose.Schema({}, {
 const MyModel = mongoose.model('bigdata', datas)
 
 /*
- * Démarrage des process
+ * Start process
  */
 process.on('message', ({ data, type }) => {
     switch (type) {
@@ -28,7 +28,7 @@ process.on('message', ({ data, type }) => {
 })
 
 /*
- * Start process
+ * Start all for insert
  * @params fileIndex
  */
 const startAllForInsert = (fileIndex) => {

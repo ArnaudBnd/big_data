@@ -4,25 +4,7 @@ const pm2 = require('pm2')
 let indexFil = 0
 
 /*
- * Creation d'un tableau avec tout les noms de fichier crées
- * @return promese
- */
-const getNameTaskValue = () => {
-  return new Promise((resolve) => {
-    // get name csv
-    // and push into tabl
-    fs.readdir(path, function(err, items) {
-      const fileTab = []
-      for (var i=1; i<items.length; i++) {
-        fileTab.push(items[i])
-      }
-      resolve(fileTab)
-    })
-  })
-}
-
-/*
- * Démarrage des process
+ * Start process
  *
  */
 const startProcess = () => {
@@ -87,6 +69,4 @@ pm2.launchBus((err, bus) => {
 })
 
 // EXECUTION
-getNameTaskValue().then((res) => {
-  startProcess(res)
-})
+startProcess()
