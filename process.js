@@ -7,41 +7,39 @@ let indexFil = 0
  * Start process
  *
  */
-const startProcess = () => {
-  pm2.connect(function(err) {
-    if (err) {
-      console.error(err)
-      process.exit(2)
+pm2.connect(function(err) {
+  if (err) {
+    console.error(err)
+    process.exit(2)
+  }
+
+  pm2.start({
+    script: 'index.js',
+    instances : 4,
+    instance_var: 'INSTANCE_ID',
+    env: {
+        "NODE_ENV": "development"
     }
+  }, function(err, apps) {
+    if (err) throw err
 
-    pm2.start({
-      script: 'index.js',
-      instances : 4,
-      instance_var: 'INSTANCE_ID',
-      env: {
-          "NODE_ENV": "development"
-      }
-    }, function(err, apps) {
-      if (err) throw err
-
-      setTimeout(() => {
-        apps.map(app => {
-          pm2.sendDataToProcessId({
-            type : 'startProcessInsert',
-            id: app.pm2_env.pm_id,
-            data : {
-              fileIndex: indexFil
-            },
-            topic: 'DEFAULT_TOPIC'
-          }, () => {
-            console.log('instance', ' done')
-          })
-          indexFil++
+    setTimeout(() => {
+      apps.map(app => {
+        pm2.sendDataToProcessId({
+          type : 'startProcessInsert',
+          id: app.pm2_env.pm_id,
+          data : {
+            fileIndex: indexFil
+          },
+          topic: 'DEFAULT_TOPIC'
+        }, () => {
+          console.log('instance', ' done')
         })
-      }, 2000)
-    })
+        indexFil++
+      })
+    }, 2000)
   })
-}
+})
 
 /*
  * Opens a message bus enter process
@@ -67,6 +65,3 @@ pm2.launchBus((err, bus) => {
     }
   })
 })
-
-// EXECUTION
-startProcess()
